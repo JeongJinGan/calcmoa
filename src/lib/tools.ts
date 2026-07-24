@@ -116,4 +116,5 @@ export const siteConfig = {
   name: "계산모아",
   description: "연봉, 퇴직금, 대출, 세금까지 한 번에 계산하는 생활 금융 계산기 모음",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://calcmoa.vercel.app",
+  cafeUrl: "https://cafe.naver.com/calcmoa",
 };

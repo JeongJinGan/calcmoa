@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import FaqSection, { FaqItem } from "@/components/tool/FaqSection";
 import RelatedTools from "@/components/tool/RelatedTools";
+import CafeBanner from "@/components/tool/CafeBanner";
+import ShareButton from "@/components/tool/ShareButton";
 
 interface ToolPageShellProps {
   slug: string;
@@ -27,6 +29,9 @@ export default function ToolPageShell({
       </header>
 
       {calculator}
+
+      <ShareButton title={title} text={description} path={`/${slug}`} />
+      <CafeBanner />
 
       <section className="prose prose-neutral mt-8 max-w-none dark:prose-invert prose-sm">{infoContent}</section>
 
