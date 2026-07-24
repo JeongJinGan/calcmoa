@@ -1,0 +1,56 @@
+import type { Metadata } from "next";
+import ToolPageShell from "@/components/tool/ToolPageShell";
+import AgeCalculator from "@/components/calculators/AgeCalculator";
+import { getToolBySlug } from "@/lib/tools";
+
+const tool = getToolBySlug("age")!;
+
+export const metadata: Metadata = {
+  title: "만나이 계산기 - 만나이, 연나이, 세는나이 한 번에 확인",
+  description: "생년월일만 입력하면 만나이, 연나이, 한국식 세는나이를 동시에 계산하고 다음 생일까지 남은 날짜도 확인할 수 있습니다.",
+  alternates: { canonical: "/age" },
+};
+
+const faqs = [
+  {
+    question: "만나이와 세는나이는 무엇이 다른가요?",
+    answer:
+      "만나이는 태어난 날을 0세로 하여 생일이 지날 때마다 한 살씩 늘어나는 국제 표준 나이 계산법입니다. 세는나이(한국식 나이)는 태어난 해를 1세로 하여 새해가 될 때마다 한 살씩 늘어나는 계산법입니다.",
+  },
+  {
+    question: "2023년 6월부터 법적 나이 기준이 바뀌었다는 게 사실인가요?",
+    answer:
+      "네, 2023년 6월 28일부터 시행된 행정기본법 및 민법 개정에 따라 별도의 규정이 없는 한 대부분의 법령에서 나이는 만 나이로 통일하여 계산합니다.",
+  },
+  {
+    question: "연나이는 어디에 사용되나요?",
+    answer: "연나이는 현재 연도에서 출생 연도를 뺀 나이로, 병역법과 청소년보호법 등 일부 법령에서 여전히 사용됩니다.",
+  },
+  {
+    question: "기준일을 오늘이 아닌 다른 날짜로 설정할 수 있나요?",
+    answer: "네, 기준일 입력란에 원하는 날짜를 선택하면 해당 시점 기준의 만나이와 연나이를 계산할 수 있습니다.",
+  },
+];
+
+export default function AgePage() {
+  return (
+    <ToolPageShell
+      slug="age"
+      title={tool.title}
+      description={tool.description}
+      calculator={<AgeCalculator />}
+      faqs={faqs}
+      infoContent={
+        <>
+          <h2>만나이 계산 방법</h2>
+          <p>
+            만나이는 기준일의 연도에서 출생연도를 뺀 값을 기본으로 하되, 아직 생일이 지나지 않았다면 1을 빼서
+            계산합니다. 연나이는 생일 경과 여부와 관계없이 기준일 연도에서 출생연도를 단순히 뺀 값이며, 세는나이는
+            출생연도를 1세로 보고 매년 1월 1일마다 한 살씩 더하는 전통적인 한국식 계산법입니다. 2023년 6월 28일
+            행정기본법 개정 이후 법령, 계약, 공문서 등에서는 별도 규정이 없는 한 만나이 사용이 원칙입니다.
+          </p>
+        </>
+      }
+    />
+  );
+}

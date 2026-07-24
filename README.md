@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 계산모아 (calcmoa)
 
-## Getting Started
+애드센스 수익화를 목표로 하는 생활·금융 계산기 모음 사이트. Next.js App Router + Tailwind CSS, 완전 정적(SSG) 배포.
 
-First, run the development server:
+## 로컬 실행
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000 에서 확인합니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 현재 구현된 계산기 (MVP 5+1)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| 경로 | 계산기 | 카테고리 |
+| --- | --- | --- |
+| `/salary` | 연봉 실수령액 계산기 | 급여/세금 |
+| `/severance` | 퇴직금 계산기 | 급여/세금 |
+| `/income-tax` | 종합소득세 계산기 | 급여/세금 |
+| `/vat` | 부가세 계산기 | 급여/세금 |
+| `/loan` | 대출 원리금 상환 계산기 | 대출/금융 |
+| `/age` | 만나이 계산기 | 생활 |
 
-## Learn More
+새 계산기를 추가하려면: `src/lib/calculators/*.ts`에 순수 계산 함수 작성 → `src/components/calculators/*.tsx`에 클라이언트 UI 작성 → `src/app/<slug>/page.tsx`에서 `ToolPageShell`로 조립 → `src/lib/tools.ts`에 메타데이터 등록.
 
-To learn more about Next.js, take a look at the following resources:
+## 환경변수
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`.env.example` 참고. 로컬 개발에는 필요 없으며, Vercel 배포 시 아래 값을 설정합니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `NEXT_PUBLIC_SITE_URL`: sitemap/robots/OG 태그에 사용되는 배포 도메인
+- `NEXT_PUBLIC_GA_ID`: Google Analytics 4 측정 ID (없으면 GA 미삽입)
+- `NEXT_PUBLIC_ADSENSE_CLIENT`, `NEXT_PUBLIC_ADSENSE_SLOT_*`: 애드센스 승인 후 설정 (없으면 광고 자리에 플레이스홀더만 표시)
 
-## Deploy on Vercel
+## 배포 (무료 플랜 기준)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. GitHub에 이 저장소를 public repo로 푸시
+2. [vercel.com](https://vercel.com)에서 GitHub 저장소 Import → Framework Preset은 Next.js 자동 인식 → 배포
+   - 무료 서브도메인(`프로젝트명.vercel.app`)으로 우선 운영, 수익 발생 후 커스텀 도메인(.com/.kr) 구매 권장
+3. [Google Search Console](https://search.google.com/search-console)에 배포된 도메인 등록 후 `/sitemap.xml` 제출
+4. [Google Analytics](https://analytics.google.com)에서 속성 생성 → 측정 ID를 Vercel 환경변수 `NEXT_PUBLIC_GA_ID`에 등록
+5. 트래픽 발생 확인 후 [Google 애드센스](https://www.google.com/adsense/) 신청 → 승인되면 `NEXT_PUBLIC_ADSENSE_CLIENT` 및 슬롯별 ID 등록
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 스택
+
+- Next.js 16 (App Router, 전 페이지 정적 생성)
+- Tailwind CSS 4
+- 서버 불필요 — 모든 계산 로직은 클라이언트 사이드 JS
