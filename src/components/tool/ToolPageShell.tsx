@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import AdSlot from "@/components/ads/AdSlot";
 import FaqSection, { FaqItem } from "@/components/tool/FaqSection";
 import RelatedTools from "@/components/tool/RelatedTools";
 
@@ -29,15 +28,7 @@ export default function ToolPageShell({
 
       {calculator}
 
-      <div className="my-8">
-        <AdSlot slotId={process.env[`NEXT_PUBLIC_ADSENSE_SLOT_${slug.toUpperCase().replace(/-/g, "_")}_1`]} />
-      </div>
-
-      <section className="prose prose-neutral max-w-none dark:prose-invert prose-sm">{infoContent}</section>
-
-      <div className="my-8">
-        <AdSlot slotId={process.env[`NEXT_PUBLIC_ADSENSE_SLOT_${slug.toUpperCase().replace(/-/g, "_")}_2`]} />
-      </div>
+      <section className="prose prose-neutral mt-8 max-w-none dark:prose-invert prose-sm">{infoContent}</section>
 
       <FaqSection items={faqs} />
       <RelatedTools slug={slug} />
