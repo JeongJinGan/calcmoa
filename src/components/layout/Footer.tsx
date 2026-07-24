@@ -28,7 +28,12 @@ export default function Footer() {
             실제 금액은 관련 법령, 회사 규정 또는 금융기관의 산정 기준에 따라 달라질 수 있으니 정확한 값은 국세청,
             고용노동부, 금융회사 등 공식 기관을 통해 확인하시기 바랍니다.
           </p>
-          <p className="mt-2">© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+          <p className="mt-2 flex items-center gap-3">
+            <span>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</span>
+            <Link href="/privacy" className="underline hover:text-neutral-700 dark:hover:text-neutral-300">
+              개인정보처리방침
+            </Link>
+          </p>
         </div>
       </div>
     </footer>
