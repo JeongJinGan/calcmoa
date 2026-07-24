@@ -1,4 +1,4 @@
-export type ToolCategory = "급여/세금" | "대출/금융" | "생활";
+export type ToolCategory = "급여/세금" | "대출/금융" | "생활" | "건강";
 
 export interface ToolMeta {
   slug: string;
@@ -65,9 +65,36 @@ export const tools: ToolMeta[] = [
     keywords: ["만나이 계산기", "만 나이 계산", "나이 계산기", "연나이"],
     emoji: "🎂",
   },
+  {
+    slug: "savings-interest",
+    title: "예금·적금 이자 계산기",
+    shortTitle: "예금·적금 이자",
+    category: "대출/금융",
+    description: "예금 또는 적금의 원금, 금리, 기간을 입력하면 세전·세후 이자와 만기수령액을 계산합니다.",
+    keywords: ["예금 이자 계산기", "적금 이자 계산기", "적금 만기 계산기", "이자소득세"],
+    emoji: "🏛️",
+  },
+  {
+    slug: "unemployment-benefit",
+    title: "실업급여 계산기",
+    shortTitle: "실업급여",
+    category: "생활",
+    description: "평균임금과 나이, 고용보험 가입기간을 입력하면 예상 구직급여(실업급여) 총액을 계산합니다.",
+    keywords: ["실업급여 계산기", "구직급여 계산기", "실업급여 조건", "소정급여일수"],
+    emoji: "📋",
+  },
+  {
+    slug: "bmi",
+    title: "BMI 계산기",
+    shortTitle: "BMI",
+    category: "건강",
+    description: "키와 몸무게를 입력하면 체질량지수(BMI)와 비만도 단계, 표준체중을 계산합니다.",
+    keywords: ["BMI 계산기", "체질량지수 계산기", "표준체중 계산기", "비만도 측정"],
+    emoji: "⚖️",
+  },
 ];
 
-export const categories: ToolCategory[] = ["급여/세금", "대출/금융", "생활"];
+export const categories: ToolCategory[] = ["급여/세금", "대출/금융", "생활", "건강"];
 
 export function getToolBySlug(slug: string): ToolMeta | undefined {
   return tools.find((t) => t.slug === slug);
