@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import FaqSection, { FaqItem } from "@/components/tool/FaqSection";
 import RelatedTools from "@/components/tool/RelatedTools";
 import CafeBanner from "@/components/tool/CafeBanner";
+import BlogBanner from "@/components/tool/BlogBanner";
 import ShareButton from "@/components/tool/ShareButton";
 
 interface ToolPageShellProps {
@@ -32,6 +33,7 @@ export default function ToolPageShell({
 
       <ShareButton title={title} text={description} path={`/${slug}`} />
       <CafeBanner />
+      <BlogBanner />
 
       <section className="prose prose-neutral mt-8 max-w-none dark:prose-invert prose-sm">{infoContent}</section>
 

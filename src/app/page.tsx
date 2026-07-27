@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { categories, getToolsByCategory, siteConfig } from "@/lib/tools";
 import CafeBanner from "@/components/tool/CafeBanner";
+import BlogBanner from "@/components/tool/BlogBanner";
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} - 무료 생활·금융 계산기 모음`,
@@ -24,6 +25,7 @@ export default function Home() {
 
       <div className="mx-auto mt-8 max-w-xl">
         <CafeBanner />
+        <BlogBanner />
       </div>
 
       <div className="mt-12 space-y-12">
