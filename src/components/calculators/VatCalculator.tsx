@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { calculateVat, VatMode } from "@/lib/calculators/vat";
 import { formatWon } from "@/lib/format";
+import AmountInput from "@/components/ui/AmountInput";
 
 export default function VatCalculator() {
   const [amount, setAmount] = useState("1000000");
@@ -41,11 +42,9 @@ export default function VatCalculator() {
         <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
           {mode === "fromSupply" ? "공급가액 (원)" : "합계금액 (부가세 포함, 원)"}
         </span>
-        <input
-          type="number"
-          inputMode="numeric"
+        <AmountInput
           value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          onChange={setAmount}
           className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right text-lg font-semibold outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
         />
       </label>

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { calculateSavingsInterest, SavingsMode, TaxOption } from "@/lib/calculators/savingsInterest";
 import { formatWon } from "@/lib/format";
+import AmountInput from "@/components/ui/AmountInput";
 
 const TAX_OPTIONS: { value: TaxOption; label: string }[] = [
   { value: "general", label: "일반과세 (15.4%)" },
@@ -61,11 +62,9 @@ export default function SavingsInterestCalculator() {
           <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
             {mode === "lumpSum" ? "예치 원금 (원)" : "매월 납입액 (원)"}
           </span>
-          <input
-            type="number"
-            inputMode="numeric"
+          <AmountInput
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={setAmount}
             className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
           />
         </label>

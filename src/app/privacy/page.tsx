@@ -5,7 +5,6 @@ export const metadata: Metadata = {
   title: "개인정보처리방침",
   description: `${siteConfig.name}의 개인정보처리방침 및 쿠키, 광고 정책 안내`,
   alternates: { canonical: "/privacy" },
-  robots: { index: false, follow: true },
 };
 
 export default function PrivacyPage() {

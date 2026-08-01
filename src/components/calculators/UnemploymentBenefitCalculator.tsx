@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { calculateUnemploymentBenefit, InsuredPeriod } from "@/lib/calculators/unemploymentBenefit";
 import { formatWon, formatNumber } from "@/lib/format";
+import AmountInput from "@/components/ui/AmountInput";
 
 const INSURED_PERIOD_OPTIONS: { value: InsuredPeriod; label: string }[] = [
   { value: "under1", label: "1년 미만" },
@@ -54,11 +55,9 @@ export default function UnemploymentBenefitCalculator() {
           <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
             이직 전 3개월간 총 급여 (세전, 원)
           </span>
-          <input
-            type="number"
-            inputMode="numeric"
+          <AmountInput
             value={recentThreeMonthsPay}
-            onChange={(e) => setRecentThreeMonthsPay(e.target.value)}
+            onChange={setRecentThreeMonthsPay}
             className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
           />
         </label>

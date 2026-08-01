@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { calculateSeverance } from "@/lib/calculators/severance";
 import { formatWon, formatNumber } from "@/lib/format";
+import AmountInput from "@/components/ui/AmountInput";
 
 export default function SeveranceCalculator() {
   const [hireDate, setHireDate] = useState("2022-01-02");
@@ -48,31 +49,25 @@ export default function SeveranceCalculator() {
           <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
             퇴직 전 3개월간 총 급여 (세전, 원)
           </span>
-          <input
-            type="number"
-            inputMode="numeric"
+          <AmountInput
             value={recentThreeMonthsPay}
-            onChange={(e) => setRecentThreeMonthsPay(e.target.value)}
+            onChange={setRecentThreeMonthsPay}
             className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
           />
         </label>
         <label className="block">
           <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">최근 1년 상여금 총액 (원)</span>
-          <input
-            type="number"
-            inputMode="numeric"
+          <AmountInput
             value={annualBonus}
-            onChange={(e) => setAnnualBonus(e.target.value)}
+            onChange={setAnnualBonus}
             className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
           />
         </label>
         <label className="block">
           <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">최근 1년 연차수당 총액 (원)</span>
-          <input
-            type="number"
-            inputMode="numeric"
+          <AmountInput
             value={annualLeaveAllowance}
-            onChange={(e) => setAnnualLeaveAllowance(e.target.value)}
+            onChange={setAnnualLeaveAllowance}
             className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
           />
         </label>

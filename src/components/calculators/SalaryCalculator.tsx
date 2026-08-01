@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { calculateSalary } from "@/lib/calculators/salary";
 import { formatWon } from "@/lib/format";
+import AmountInput from "@/components/ui/AmountInput";
 
 export default function SalaryCalculator() {
   const [annualSalary, setAnnualSalary] = useState("40000000");
@@ -26,24 +27,20 @@ export default function SalaryCalculator() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="block">
           <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">연봉 (세전, 원)</span>
-          <input
-            type="number"
-            inputMode="numeric"
+          <AmountInput
             value={annualSalary}
-            onChange={(e) => setAnnualSalary(e.target.value)}
+            onChange={setAnnualSalary}
             className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right text-lg font-semibold outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
-            placeholder="예: 40000000"
+            placeholder="예: 40,000,000"
           />
         </label>
         <label className="block">
           <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">비과세액 (월, 원)</span>
-          <input
-            type="number"
-            inputMode="numeric"
+          <AmountInput
             value={monthlyNonTaxable}
-            onChange={(e) => setMonthlyNonTaxable(e.target.value)}
+            onChange={setMonthlyNonTaxable}
             className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
-            placeholder="식대 등, 예: 200000"
+            placeholder="식대 등, 예: 200,000"
           />
         </label>
         <label className="block">

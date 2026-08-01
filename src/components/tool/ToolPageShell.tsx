@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import FaqSection, { FaqItem } from "@/components/tool/FaqSection";
+import InfoSection, { InfoBlock } from "@/components/tool/InfoSection";
 import RelatedTools from "@/components/tool/RelatedTools";
 import CafeBanner from "@/components/tool/CafeBanner";
 import BlogBanner from "@/components/tool/BlogBanner";
@@ -10,7 +11,7 @@ interface ToolPageShellProps {
   title: string;
   description: string;
   calculator: ReactNode;
-  infoContent: ReactNode;
+  infoBlocks: InfoBlock[];
   faqs: FaqItem[];
 }
 
@@ -19,7 +20,7 @@ export default function ToolPageShell({
   title,
   description,
   calculator,
-  infoContent,
+  infoBlocks,
   faqs,
 }: ToolPageShellProps) {
   return (
@@ -35,7 +36,7 @@ export default function ToolPageShell({
       <CafeBanner />
       <BlogBanner />
 
-      <section className="prose prose-neutral mt-8 max-w-none dark:prose-invert prose-sm">{infoContent}</section>
+      <InfoSection blocks={infoBlocks} />
 
       <FaqSection items={faqs} />
       <RelatedTools slug={slug} />

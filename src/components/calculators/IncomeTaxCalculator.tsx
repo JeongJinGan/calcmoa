@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { calculateIncomeTax } from "@/lib/calculators/incomeTax";
 import { formatWon } from "@/lib/format";
+import AmountInput from "@/components/ui/AmountInput";
 
 export default function IncomeTaxCalculator() {
   const [totalIncome, setTotalIncome] = useState("60000000");
@@ -24,21 +25,17 @@ export default function IncomeTaxCalculator() {
           <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
             종합소득금액 (연간, 원)
           </span>
-          <input
-            type="number"
-            inputMode="numeric"
+          <AmountInput
             value={totalIncome}
-            onChange={(e) => setTotalIncome(e.target.value)}
+            onChange={setTotalIncome}
             className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
           />
         </label>
         <label className="block">
           <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">소득공제액 (연간, 원)</span>
-          <input
-            type="number"
-            inputMode="numeric"
+          <AmountInput
             value={deductions}
-            onChange={(e) => setDeductions(e.target.value)}
+            onChange={setDeductions}
             className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
           />
         </label>

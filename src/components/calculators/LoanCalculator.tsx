@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { calculateLoan, RepaymentType } from "@/lib/calculators/loan";
 import { formatWon } from "@/lib/format";
+import AmountInput from "@/components/ui/AmountInput";
 
 const REPAYMENT_TYPES: { value: RepaymentType; label: string }[] = [
   { value: "equalPayment", label: "원리금균등상환" },
@@ -50,11 +51,9 @@ export default function LoanCalculator() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <label className="block">
           <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">대출 원금 (원)</span>
-          <input
-            type="number"
-            inputMode="numeric"
+          <AmountInput
             value={principal}
-            onChange={(e) => setPrincipal(e.target.value)}
+            onChange={setPrincipal}
             className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
           />
         </label>
