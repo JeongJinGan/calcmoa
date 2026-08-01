@@ -118,4 +118,5 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://calcmoa.vercel.app",
   cafeUrl: "https://cafe.naver.com/calcmoa",
   blogUrl: "https://blog.naver.com/PostList.naver?blogId=calcmoa",
+  contactEmail: "rkswjdwls@gmail.com",
 };

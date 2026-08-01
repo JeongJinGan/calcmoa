@@ -51,7 +51,10 @@ export default function PrivacyPage() {
         </p>
 
         <h2>5. 문의</h2>
-        <p>개인정보처리방침에 대한 문의사항은 사이트 운영자에게 이메일로 연락해 주시기 바랍니다.</p>
+        <p>
+          개인정보처리방침에 대한 문의사항은{" "}
+          <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>로 연락해 주시기 바랍니다.
+        </p>
 
         <h2>6. 방침 변경</h2>
         <p>본 방침은 법령 및 서비스 변경에 따라 개정될 수 있으며, 변경 시 본 페이지를 통해 공지합니다.</p>
