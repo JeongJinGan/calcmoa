@@ -41,6 +41,7 @@ export default function LadderPage() {
       title={tool.title}
       description={tool.description}
       calculator={<LadderGameLoader />}
+      hideShareButton
       faqs={faqs}
       infoBlocks={[
         {

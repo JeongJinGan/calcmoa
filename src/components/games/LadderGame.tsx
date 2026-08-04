@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AVATARS, GAME_PALETTE, generateRungs, tracePath, type Rungs } from "@/lib/games/ladder";
+import { AVATARS, GAME_PALETTE, generateRungs, randomSeed, tracePath, type Rungs } from "@/lib/games/ladder";
 
 const COL_SPACING = 72;
 const ROW_HEIGHT = 26;
@@ -21,14 +21,62 @@ function defaultParticipants(n: number): string[] {
   return Array.from({ length: n }, (_, i) => `참가자${i + 1}`);
 }
 
+interface SharedLadderState {
+  participants: string[];
+  results: string[];
+  seed: number;
+}
+
+function readSharedState(): SharedLadderState | null {
+  if (typeof window === "undefined") return null;
+  const raw = new URLSearchParams(window.location.search).get("result");
+  if (!raw) return null;
+
+  try {
+    const parsed = JSON.parse(decodeURIComponent(raw));
+    if (
+      Array.isArray(parsed.p) &&
+      Array.isArray(parsed.r) &&
+      parsed.p.length === parsed.r.length &&
+      parsed.p.length >= MIN_PARTICIPANTS &&
+      parsed.p.length <= MAX_PARTICIPANTS &&
+      typeof parsed.s === "number"
+    ) {
+      return { participants: parsed.p, results: parsed.r, seed: parsed.s };
+    }
+  } catch {
+    // 잘못된 형식의 공유 링크는 무시하고 새 게임으로 시작
+  }
+  return null;
+}
+
+function revealedFromSeed(participants: string[], seed: number): Record<number, number> {
+  const cols = participants.length;
+  const r = generateRungs(cols, rowsFor(cols), seed);
+  const map: Record<number, number> = {};
+  for (let i = 0; i < cols; i++) map[i] = tracePath(r, i).finalCol;
+  return map;
+}
+
 export default function LadderGame() {
-  const [participants, setParticipants] = useState<string[]>(defaultParticipants(4));
-  const [results, setResults] = useState<string[]>(defaultResults(4));
-  const [rungs, setRungs] = useState<Rungs>(() => generateRungs(4, rowsFor(4)));
-  const [revealed, setRevealed] = useState<Record<number, number>>({});
+  const [sharedState] = useState<SharedLadderState | null>(() => readSharedState());
+
+  const [participants, setParticipants] = useState<string[]>(
+    () => sharedState?.participants ?? defaultParticipants(4)
+  );
+  const [results, setResults] = useState<string[]>(() => sharedState?.results ?? defaultResults(4));
+  const [seed, setSeed] = useState<number>(() => sharedState?.seed ?? randomSeed());
+  const [rungs, setRungs] = useState<Rungs>(() => {
+    const cols = sharedState?.participants.length ?? 4;
+    return generateRungs(cols, rowsFor(cols), sharedState?.seed);
+  });
+  const [revealed, setRevealed] = useState<Record<number, number>>(() =>
+    sharedState ? revealedFromSeed(sharedState.participants, sharedState.seed) : {}
+  );
   const [animatingCol, setAnimatingCol] = useState<number | null>(null);
   const [animatingStep, setAnimatingStep] = useState(0);
-  const [countInput, setCountInput] = useState("4");
+  const [countInput, setCountInput] = useState(() => String(sharedState?.participants.length ?? 4));
+  const [shareCopied, setShareCopied] = useState(false);
 
   const columns = participants.length;
   const rows = rowsFor(columns);
@@ -37,6 +85,13 @@ export default function LadderGame() {
 
   const colX = (i: number) => PADDING + i * COL_SPACING;
   const pathY = (k: number) => PADDING + k * ROW_HEIGHT;
+
+  useEffect(() => {
+    if (!sharedState) return;
+    window.history.replaceState(null, "", window.location.pathname);
+    // 공유 링크로 들어온 결과를 한 번 불러온 뒤에는 주소창을 깔끔하게 정리한다.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (animatingCol === null) return;
@@ -55,7 +110,9 @@ export default function LadderGame() {
   }, [animatingCol, animatingStep, rungs]);
 
   const reshuffle = () => {
-    setRungs(generateRungs(columns, rowsFor(columns)));
+    const newSeed = randomSeed();
+    setSeed(newSeed);
+    setRungs(generateRungs(columns, rowsFor(columns), newSeed));
     setRevealed({});
     setAnimatingCol(null);
     setAnimatingStep(0);
@@ -63,9 +120,11 @@ export default function LadderGame() {
 
   const changeParticipantCount = (n: number) => {
     if (n < MIN_PARTICIPANTS || n > MAX_PARTICIPANTS) return;
+    const newSeed = randomSeed();
     setParticipants(defaultParticipants(n));
     setResults(defaultResults(n));
-    setRungs(generateRungs(n, rowsFor(n)));
+    setSeed(newSeed);
+    setRungs(generateRungs(n, rowsFor(n), newSeed));
     setRevealed({});
     setAnimatingCol(null);
     setAnimatingStep(0);
@@ -94,6 +153,30 @@ export default function LadderGame() {
     });
   };
 
+  const handleShareResult = async () => {
+    const payload = { p: participants, r: results, s: seed };
+    const url = `${window.location.origin}${window.location.pathname}?result=${encodeURIComponent(
+      JSON.stringify(payload)
+    )}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "사다리타기 결과", text: "사다리타기 결과를 확인해보세요!", url });
+      } catch {
+        // 사용자가 공유 시트를 취소한 경우 등은 조용히 무시
+      }
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(url);
+      setShareCopied(true);
+      setTimeout(() => setShareCopied(false), 2000);
+    } catch {
+      // 클립보드 접근이 막힌 환경이면 조용히 무시
+    }
+  };
+
   const allRevealed = Object.keys(revealed).length === columns;
   const cardWidth = Math.min(760, Math.max(svgWidth + 56, 420));
   const markerPos = animatingCol !== null ? tracePath(rungs, animatingCol).path[animatingStep] : null;
@@ -103,6 +186,12 @@ export default function LadderGame() {
       className="mx-auto rounded-3xl border border-black/5 bg-white p-6 shadow-xl dark:border-white/5 dark:bg-neutral-900 dark:shadow-none sm:p-7"
       style={{ maxWidth: cardWidth }}
     >
+      {sharedState && (
+        <div className="mb-4 rounded-xl bg-blue-50 p-3 text-center text-xs font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400">
+          공유받은 사다리타기 결과입니다. &apos;새로 섞기&apos;를 누르면 같은 멤버로 새 게임을 시작해요.
+        </div>
+      )}
+
       <div className="flex flex-wrap items-center justify-between gap-3">
         <label className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">
           인원 수
@@ -262,9 +351,18 @@ export default function LadderGame() {
       </div>
 
       {allRevealed && (
-        <p className="mt-5 rounded-2xl bg-blue-50 p-4 text-center text-sm font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400">
-          모든 결과가 공개됐어요! 다시 하려면 &apos;새로 섞기&apos;를 눌러주세요.
-        </p>
+        <div className="mt-5 space-y-3">
+          <p className="rounded-2xl bg-blue-50 p-4 text-center text-sm font-medium text-blue-700 dark:bg-blue-500/10 dark:text-blue-400">
+            모든 결과가 공개됐어요! 다시 하려면 &apos;새로 섞기&apos;를 눌러주세요.
+          </p>
+          <button
+            type="button"
+            onClick={handleShareResult}
+            className="w-full rounded-2xl bg-blue-500 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:bg-blue-600 active:scale-95"
+          >
+            {shareCopied ? "링크가 복사됐어요 ✓" : "🔗 이 결과 공유하기"}
+          </button>
+        </div>
       )}
     </div>
   );

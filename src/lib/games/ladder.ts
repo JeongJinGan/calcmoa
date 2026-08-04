@@ -1,13 +1,30 @@
 export type Rungs = boolean[][];
 
-export function generateRungs(columns: number, rows: number): Rungs {
+// Deterministic PRNG so a shared link can reproduce the exact same ladder from its seed.
+function mulberry32(seed: number): () => number {
+  let state = seed;
+  return () => {
+    state |= 0;
+    state = (state + 0x6d2b79f5) | 0;
+    let t = Math.imul(state ^ (state >>> 15), 1 | state);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+export function randomSeed(): number {
+  return Math.floor(Math.random() * 2 ** 31);
+}
+
+export function generateRungs(columns: number, rows: number, seed?: number): Rungs {
+  const rand = seed === undefined ? Math.random : mulberry32(seed);
   const rungs: Rungs = [];
 
   for (let row = 0; row < rows; row++) {
     const rowRungs: boolean[] = new Array(columns - 1).fill(false);
     for (let col = 0; col < columns - 1; col++) {
       if (col > 0 && rowRungs[col - 1]) continue;
-      rowRungs[col] = Math.random() < 0.35;
+      rowRungs[col] = rand() < 0.35;
     }
     rungs.push(rowRungs);
   }

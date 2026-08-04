@@ -14,6 +14,7 @@ interface ToolPageShellProps {
   infoBlocks: InfoBlock[];
   faqs: FaqItem[];
   wide?: boolean;
+  hideShareButton?: boolean;
 }
 
 export default function ToolPageShell({
@@ -24,6 +25,7 @@ export default function ToolPageShell({
   infoBlocks,
   faqs,
   wide = false,
+  hideShareButton = false,
 }: ToolPageShellProps) {
   return (
     <div className={`mx-auto px-4 py-8 ${wide ? "max-w-4xl" : "max-w-3xl"}`}>
@@ -36,7 +38,7 @@ export default function ToolPageShell({
 
       {calculator}
 
-      <ShareButton title={title} text={description} path={`/${slug}`} />
+      {!hideShareButton && <ShareButton title={title} text={description} path={`/${slug}`} />}
       <CafeBanner />
       <BlogBanner />
 
