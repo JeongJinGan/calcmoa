@@ -30,7 +30,7 @@ export default function LoanCalculator() {
   );
 
   return (
-    <div className="rounded-2xl border border-black/10 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-neutral-900 sm:p-6">
+    <div className="rounded-3xl border border-black/5 bg-white p-6 shadow-xl dark:border-white/5 dark:bg-neutral-900 dark:shadow-none sm:p-7">
       <div className="mb-4 flex flex-wrap gap-2">
         {REPAYMENT_TYPES.map((t) => (
           <button
@@ -40,7 +40,7 @@ export default function LoanCalculator() {
             className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
               type === t.value
                 ? "bg-blue-600 text-white"
-                : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300"
+                : "bg-neutral-100 text-neutral-500 transition-colors hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400"
             }`}
           >
             {t.label}
@@ -54,7 +54,7 @@ export default function LoanCalculator() {
           <AmountInput
             value={principal}
             onChange={setPrincipal}
-            className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
+            className="mt-1 w-full rounded-xl border border-black/10 bg-neutral-50 px-3 py-2.5 text-right outline-none transition-colors focus:border-blue-500 focus:bg-white dark:focus:bg-neutral-800 dark:border-white/10 dark:bg-neutral-800"
           />
         </label>
         <label className="block">
@@ -65,7 +65,7 @@ export default function LoanCalculator() {
             step="0.01"
             value={annualRate}
             onChange={(e) => setAnnualRate(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
+            className="mt-1 w-full rounded-xl border border-black/10 bg-neutral-50 px-3 py-2.5 text-right outline-none transition-colors focus:border-blue-500 focus:bg-white dark:focus:bg-neutral-800 dark:border-white/10 dark:bg-neutral-800"
           />
         </label>
         <label className="block">
@@ -75,14 +75,14 @@ export default function LoanCalculator() {
             inputMode="numeric"
             value={termYears}
             onChange={(e) => setTermYears(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
+            className="mt-1 w-full rounded-xl border border-black/10 bg-neutral-50 px-3 py-2.5 text-right outline-none transition-colors focus:border-blue-500 focus:bg-white dark:focus:bg-neutral-800 dark:border-white/10 dark:bg-neutral-800"
           />
         </label>
       </div>
 
       {result && (
         <div className="mt-6">
-          <div className="rounded-xl bg-blue-50 p-5 dark:bg-blue-950/30">
+          <div className="rounded-2xl bg-blue-50 p-6 dark:bg-blue-500/10">
             <p className="text-sm text-neutral-600 dark:text-neutral-400">
               {type === "equalPayment" ? "월 상환액" : "첫 회차 상환액"}
             </p>

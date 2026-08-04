@@ -12,7 +12,7 @@ export default function VatCalculator() {
   const result = useMemo(() => calculateVat(Number(amount) || 0, mode), [amount, mode]);
 
   return (
-    <div className="rounded-2xl border border-black/10 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-neutral-900 sm:p-6">
+    <div className="rounded-3xl border border-black/5 bg-white p-6 shadow-xl dark:border-white/5 dark:bg-neutral-900 dark:shadow-none sm:p-7">
       <div className="mb-4 flex gap-2">
         <button
           type="button"
@@ -20,7 +20,7 @@ export default function VatCalculator() {
           className={`flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
             mode === "fromSupply"
               ? "bg-blue-600 text-white"
-              : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300"
+              : "bg-neutral-100 text-neutral-500 transition-colors hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400"
           }`}
         >
           공급가액으로 계산
@@ -31,7 +31,7 @@ export default function VatCalculator() {
           className={`flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
             mode === "fromTotal"
               ? "bg-blue-600 text-white"
-              : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300"
+              : "bg-neutral-100 text-neutral-500 transition-colors hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400"
           }`}
         >
           합계금액으로 계산
@@ -45,12 +45,12 @@ export default function VatCalculator() {
         <AmountInput
           value={amount}
           onChange={setAmount}
-          className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right text-lg font-semibold outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
+          className="mt-1 w-full rounded-xl border border-black/10 bg-neutral-50 px-3 py-2.5 text-right text-lg font-semibold outline-none transition-colors focus:border-blue-500 focus:bg-white dark:focus:bg-neutral-800 dark:border-white/10 dark:bg-neutral-800"
         />
       </label>
 
       {result && (
-        <div className="mt-6 rounded-xl bg-blue-50 p-5 dark:bg-blue-950/30">
+        <div className="mt-6 rounded-2xl bg-blue-50 p-6 dark:bg-blue-500/10">
           <p className="text-sm text-neutral-600 dark:text-neutral-400">부가가치세 (10%)</p>
           <p className="mt-1 text-3xl font-extrabold text-blue-700 dark:text-blue-400">{formatWon(result.vatAmount)}</p>
 

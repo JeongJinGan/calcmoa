@@ -13,9 +13,11 @@ export default function RelatedTools({ slug }: { slug: string }) {
           <Link
             key={tool.slug}
             href={`/${tool.slug}`}
-            className="rounded-xl border border-black/10 p-4 transition-colors hover:border-blue-400 hover:bg-blue-50/50 dark:border-white/10 dark:hover:bg-blue-950/20"
+            className="rounded-2xl border border-black/5 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md dark:border-white/5 dark:bg-neutral-900 dark:hover:border-blue-500/30"
           >
-            <div className="text-2xl">{tool.emoji}</div>
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-xl dark:bg-blue-500/10">
+              {tool.emoji}
+            </div>
             <div className="mt-2 font-semibold text-neutral-800 dark:text-neutral-200">{tool.shortTitle}</div>
             <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">{tool.description}</p>
           </Link>

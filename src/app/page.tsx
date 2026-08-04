@@ -13,12 +13,22 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
-      <section className="text-center">
-        <h1 className="text-3xl font-extrabold text-neutral-900 dark:text-neutral-100 sm:text-4xl">
+      <section className="relative overflow-hidden rounded-[32px] bg-gradient-to-b from-blue-50 to-transparent px-4 pb-4 pt-14 text-center dark:from-blue-500/10 sm:pt-20">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-400/20 blur-3xl dark:bg-blue-500/10"
+        />
+        <span className="relative inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-blue-600 shadow-sm dark:bg-neutral-900 dark:text-blue-400">
+          🔒 회원가입 없이, 무료로 바로
+        </span>
+        <h1 className="relative mt-5 text-3xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-5xl">
           연봉, 퇴직금, 대출, 세금까지
-          <br className="hidden sm:block" /> 한 번에 계산하세요
+          <br className="hidden sm:block" />
+          <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+            한 번에 계산하세요
+          </span>
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-neutral-600 dark:text-neutral-400">
+        <p className="relative mx-auto mt-4 max-w-xl text-neutral-600 dark:text-neutral-400">
           회원가입 없이 무료로 바로 사용하는 생활·금융 계산기 모음, {siteConfig.name}입니다.
         </p>
       </section>
@@ -28,8 +38,11 @@ export default function Home() {
         <BlogBanner />
       </div>
 
-      <section className="mx-auto mt-12 max-w-3xl rounded-2xl border border-black/10 bg-white p-6 text-sm leading-relaxed text-neutral-600 dark:border-white/10 dark:bg-neutral-900 dark:text-neutral-400">
-        <h2 className="mb-2 text-base font-semibold text-neutral-900 dark:text-neutral-100">
+      <section className="mx-auto mt-12 max-w-3xl rounded-3xl border border-black/5 bg-white p-6 text-sm leading-relaxed text-neutral-600 shadow-xl dark:border-white/5 dark:bg-neutral-900 dark:text-neutral-400 dark:shadow-none sm:p-7">
+        <h2 className="mb-2 flex items-center gap-2 text-base font-bold text-neutral-900 dark:text-neutral-100">
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400">
+            ✓
+          </span>
           계산모아를 믿고 쓰는 이유
         </h2>
         <p>
@@ -41,19 +54,24 @@ export default function Home() {
         </p>
       </section>
 
-      <div className="mt-12 space-y-12">
+      <div className="mt-14 space-y-14">
         {categories.map((category) => (
           <section key={category}>
-            <h2 className="mb-4 text-xl font-bold text-neutral-900 dark:text-neutral-100">{category}</h2>
+            <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-neutral-900 dark:text-neutral-100">
+              <span className="h-5 w-1.5 rounded-full bg-blue-500" aria-hidden />
+              {category}
+            </h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {getToolsByCategory(category).map((tool) => (
                 <Link
                   key={tool.slug}
                   href={`/${tool.slug}`}
-                  className="group rounded-2xl border border-black/10 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-400 hover:shadow-md dark:border-white/10 dark:bg-neutral-900"
+                  className="group rounded-3xl border border-black/5 bg-white p-5 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 dark:border-white/5 dark:bg-neutral-900 dark:hover:shadow-none"
                 >
-                  <div className="text-3xl">{tool.emoji}</div>
-                  <h3 className="mt-3 font-semibold text-neutral-900 group-hover:text-blue-600 dark:text-neutral-100">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-2xl transition-colors group-hover:bg-blue-100 dark:bg-blue-500/10 dark:group-hover:bg-blue-500/20">
+                    {tool.emoji}
+                  </div>
+                  <h3 className="mt-3 font-semibold text-neutral-900 group-hover:text-blue-600 dark:text-neutral-100 dark:group-hover:text-blue-400">
                     {tool.title}
                   </h3>
                   <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{tool.description}</p>

@@ -13,6 +13,7 @@ interface ToolPageShellProps {
   calculator: ReactNode;
   infoBlocks: InfoBlock[];
   faqs: FaqItem[];
+  wide?: boolean;
 }
 
 export default function ToolPageShell({
@@ -22,12 +23,15 @@ export default function ToolPageShell({
   calculator,
   infoBlocks,
   faqs,
+  wide = false,
 }: ToolPageShellProps) {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className={`mx-auto px-4 py-8 ${wide ? "max-w-4xl" : "max-w-3xl"}`}>
       <header className="mb-6">
-        <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 sm:text-3xl">{title}</h1>
-        <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">{description}</p>
+        <h1 className="text-2xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-3xl">
+          {title}
+        </h1>
+        <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">{description}</p>
       </header>
 
       {calculator}

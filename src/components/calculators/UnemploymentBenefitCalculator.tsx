@@ -31,7 +31,7 @@ export default function UnemploymentBenefitCalculator() {
   );
 
   return (
-    <div className="rounded-2xl border border-black/10 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-neutral-900 sm:p-6">
+    <div className="rounded-3xl border border-black/5 bg-white p-6 shadow-xl dark:border-white/5 dark:bg-neutral-900 dark:shadow-none sm:p-7">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="block">
           <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">생년월일</span>
@@ -39,7 +39,7 @@ export default function UnemploymentBenefitCalculator() {
             type="date"
             value={birthDate}
             onChange={(e) => setBirthDate(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
+            className="mt-1 w-full rounded-xl border border-black/10 bg-neutral-50 px-3 py-2.5 outline-none transition-colors focus:border-blue-500 focus:bg-white dark:focus:bg-neutral-800 dark:border-white/10 dark:bg-neutral-800"
           />
         </label>
         <label className="block">
@@ -48,7 +48,7 @@ export default function UnemploymentBenefitCalculator() {
             type="date"
             value={leaveDate}
             onChange={(e) => setLeaveDate(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
+            className="mt-1 w-full rounded-xl border border-black/10 bg-neutral-50 px-3 py-2.5 outline-none transition-colors focus:border-blue-500 focus:bg-white dark:focus:bg-neutral-800 dark:border-white/10 dark:bg-neutral-800"
           />
         </label>
         <label className="block sm:col-span-2">
@@ -58,7 +58,7 @@ export default function UnemploymentBenefitCalculator() {
           <AmountInput
             value={recentThreeMonthsPay}
             onChange={setRecentThreeMonthsPay}
-            className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 text-right outline-none focus:border-blue-500 dark:border-white/15 dark:bg-neutral-800"
+            className="mt-1 w-full rounded-xl border border-black/10 bg-neutral-50 px-3 py-2.5 text-right outline-none transition-colors focus:border-blue-500 focus:bg-white dark:focus:bg-neutral-800 dark:border-white/10 dark:bg-neutral-800"
           />
         </label>
       </div>
@@ -74,7 +74,7 @@ export default function UnemploymentBenefitCalculator() {
               className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
                 insuredPeriod === opt.value
                   ? "bg-blue-600 text-white"
-                  : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300"
+                  : "bg-neutral-100 text-neutral-500 transition-colors hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400"
               }`}
             >
               {opt.label}
@@ -84,7 +84,7 @@ export default function UnemploymentBenefitCalculator() {
       </div>
 
       {result && (
-        <div className="mt-6 rounded-xl bg-blue-50 p-5 dark:bg-blue-950/30">
+        <div className="mt-6 rounded-2xl bg-blue-50 p-6 dark:bg-blue-500/10">
           <p className="text-sm text-neutral-600 dark:text-neutral-400">예상 실업급여 총액</p>
           <p className="mt-1 text-3xl font-extrabold text-blue-700 dark:text-blue-400">
             {formatWon(result.totalBenefit)}

@@ -1,4 +1,4 @@
-export type ToolCategory = "급여/세금" | "대출/금융" | "생활" | "건강";
+export type ToolCategory = "급여/세금" | "대출/금융" | "생활" | "건강" | "사업/창업";
 
 export interface ToolMeta {
   slug: string;
@@ -92,9 +92,63 @@ export const tools: ToolMeta[] = [
     keywords: ["BMI 계산기", "체질량지수 계산기", "표준체중 계산기", "비만도 측정"],
     emoji: "⚖️",
   },
+  {
+    slug: "cost-price",
+    title: "원가 계산기 (마진율 계산기)",
+    shortTitle: "원가·마진율",
+    category: "사업/창업",
+    description: "원가와 판매수수료율을 입력하면 목표 마진율에 맞는 판매가를, 판매가를 입력하면 마진율과 원가율을 계산합니다.",
+    keywords: ["원가 계산기", "마진율 계산기", "판매가 계산기", "마진 계산기"],
+    emoji: "🏷️",
+  },
+  {
+    slug: "break-even",
+    title: "손익분기점(BEP) 계산기",
+    shortTitle: "손익분기점",
+    category: "사업/창업",
+    description: "고정비, 변동비, 판매단가를 입력하면 손익분기 판매량과 매출액, 공헌이익률을 계산합니다.",
+    keywords: ["손익분기점 계산기", "BEP 계산기", "손익분기점 매출액", "공헌이익률"],
+    emoji: "📈",
+  },
+  {
+    slug: "hourly-wage",
+    title: "알바 시급·주휴수당 계산기",
+    shortTitle: "알바 시급",
+    category: "급여/세금",
+    description: "시급과 주 근무시간을 입력하면 주휴수당 포함 주급과 예상 월급을 계산합니다.",
+    keywords: ["알바 시급 계산기", "주휴수당 계산기", "알바 월급 계산기", "시급 계산기"],
+    emoji: "⏰",
+  },
+  {
+    slug: "household-budget",
+    title: "가계부",
+    shortTitle: "가계부",
+    category: "생활",
+    description: "수입과 지출 내역을 기록하면 이번 달 총수입, 총지출, 잔액과 카테고리별 지출 비중을 자동으로 정리합니다.",
+    keywords: ["가계부", "가계부 작성", "무료 가계부", "지출 관리"],
+    emoji: "📒",
+  },
+  {
+    slug: "jeonwolse",
+    title: "전월세 전환 계산기",
+    shortTitle: "전월세 전환",
+    category: "대출/금융",
+    description: "전세보증금을 월세로, 또는 월세를 전세로 전환 시 예상 금액을 전환율 기준으로 계산합니다.",
+    keywords: ["전월세 전환 계산기", "전월세 전환율", "전세 월세 전환", "반전세 계산기"],
+    emoji: "🏠",
+  },
+  {
+    slug: "split-bill",
+    title: "더치페이 정산 계산기",
+    shortTitle: "더치페이",
+    category: "생활",
+    description: "인원수와 각자 결제한 금액을 입력하면 1인당 부담금과 정산 방법(누가 누구에게 얼마)을 계산합니다.",
+    keywords: ["더치페이 계산기", "정산 계산기", "N분의 1 계산기", "모임비 정산"],
+    emoji: "💸",
+  },
 ];
 
-export const categories: ToolCategory[] = ["급여/세금", "대출/금융", "생활", "건강"];
+export const categories: ToolCategory[] = ["급여/세금", "대출/금융", "생활", "건강", "사업/창업"];
 
 export function getToolBySlug(slug: string): ToolMeta | undefined {
   return tools.find((t) => t.slug === slug);
