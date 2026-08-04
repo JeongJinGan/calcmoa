@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import ToolPageShell from "@/components/tool/ToolPageShell";
-import RouletteGame from "@/components/games/RouletteGame";
+import RouletteGameLoader from "@/components/games/RouletteGameLoader";
 import { getToolBySlug } from "@/lib/tools";
 
 const tool = getToolBySlug("roulette")!;
@@ -40,7 +40,8 @@ export default function RoulettePage() {
       slug="roulette"
       title={tool.title}
       description={tool.description}
-      calculator={<RouletteGame />}
+      calculator={<RouletteGameLoader />}
+      hideShareButton
       faqs={faqs}
       infoBlocks={[
         {
