@@ -1,4 +1,4 @@
-export type ToolCategory = "급여/세금" | "대출/금융" | "생활" | "건강" | "사업/창업";
+export type ToolCategory = "급여/세금" | "대출/금융" | "생활" | "건강" | "사업/창업" | "미니게임";
 
 export interface ToolMeta {
   slug: string;
@@ -146,9 +146,27 @@ export const tools: ToolMeta[] = [
     keywords: ["더치페이 계산기", "정산 계산기", "N분의 1 계산기", "모임비 정산"],
     emoji: "💸",
   },
+  {
+    slug: "ladder",
+    title: "사다리타기 게임",
+    shortTitle: "사다리타기",
+    category: "미니게임",
+    description: "참가자와 결과를 입력하고 사다리를 타면 무작위로 당첨자나 벌칙자를 정할 수 있습니다.",
+    keywords: ["사다리타기", "사다리타기 게임", "온라인 사다리타기", "벌칙 정하기"],
+    emoji: "🪜",
+  },
+  {
+    slug: "roulette",
+    title: "랜덤 룰렛 (뽑기)",
+    shortTitle: "랜덤 룰렛",
+    category: "미니게임",
+    description: "선택지를 입력하고 돌림판을 돌리면 무작위로 하나를 뽑아줍니다. 메뉴 고르기, 당첨자 뽑기에 활용하세요.",
+    keywords: ["랜덤 룰렛", "돌림판", "랜덤 뽑기", "메뉴 추천 룰렛"],
+    emoji: "🎡",
+  },
 ];
 
-export const categories: ToolCategory[] = ["급여/세금", "대출/금융", "생활", "건강", "사업/창업"];
+export const categories: ToolCategory[] = ["급여/세금", "대출/금융", "생활", "건강", "사업/창업", "미니게임"];
 
 export function getToolBySlug(slug: string): ToolMeta | undefined {
   return tools.find((t) => t.slug === slug);
