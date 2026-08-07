@@ -32,6 +32,11 @@ export const metadata: Metadata = {
     title: `${siteConfig.name} - 무료 생활·금융 계산기 모음`,
     description: siteConfig.description,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} - 무료 생활·금융 계산기 모음`,
+    description: siteConfig.description,
+  },
   robots: {
     index: true,
     follow: true,
