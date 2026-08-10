@@ -120,6 +120,15 @@ export const tools: ToolMeta[] = [
     emoji: "⏰",
   },
   {
+    slug: "overtime-pay",
+    title: "야근수당 계산기",
+    shortTitle: "야근수당",
+    category: "급여/세금",
+    description: "시급 또는 월급, 연장근로시간, 야간근로시간을 입력하면 연장·야간근로수당을 근로기준법 가산율 기준으로 계산합니다.",
+    keywords: ["야근수당 계산기", "연장근로수당 계산기", "야간근로수당 계산기", "초과근무수당"],
+    emoji: "🌙",
+  },
+  {
     slug: "household-budget",
     title: "가계부",
     shortTitle: "가계부",
@@ -163,6 +172,15 @@ export const tools: ToolMeta[] = [
     description: "선택지를 입력하고 돌림판을 돌리면 무작위로 하나를 뽑아줍니다. 메뉴 고르기, 당첨자 뽑기에 활용하세요.",
     keywords: ["랜덤 룰렛", "돌림판", "랜덤 뽑기", "메뉴 추천 룰렛"],
     emoji: "🎡",
+  },
+  {
+    slug: "claw-machine",
+    title: "실시간 인형뽑기",
+    shortTitle: "인형뽑기",
+    category: "미니게임",
+    description: "친구들과 같은 방에 모여 각자 집게를 움직이며 실시간으로 즐기는 온라인 인형뽑기 게임입니다.",
+    keywords: ["인형뽑기", "온라인 인형뽑기", "실시간 게임", "멀티플레이 게임"],
+    emoji: "🧸",
   },
 ];
 
