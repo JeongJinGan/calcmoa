@@ -29,6 +29,8 @@ export default async function ClawMachineRoomPage({ params }: RoomPageProps) {
           title="같이 인형뽑기 하자!"
           text="실시간으로 함께 인형뽑기 할 사람 모집! 링크 눌러서 바로 참여해요."
           path={`/claw-machine/${roomId}`}
+          label="🎮 친구 초대하기"
+          copiedLabel="초대 링크가 복사됐어요 ✓"
         />
       </header>
 

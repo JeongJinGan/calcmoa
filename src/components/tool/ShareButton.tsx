@@ -6,9 +6,17 @@ interface ShareButtonProps {
   title: string;
   text: string;
   path: string;
+  label?: string;
+  copiedLabel?: string;
 }
 
-export default function ShareButton({ title, text, path }: ShareButtonProps) {
+export default function ShareButton({
+  title,
+  text,
+  path,
+  label = "🔗 결과 공유하기",
+  copiedLabel = "링크가 복사됐어요 ✓",
+}: ShareButtonProps) {
   const [copied, setCopied] = useState(false);
 
   const handleShare = async () => {
@@ -38,7 +46,7 @@ export default function ShareButton({ title, text, path }: ShareButtonProps) {
       onClick={handleShare}
       className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-medium text-neutral-700 shadow-sm transition-colors hover:border-blue-300 hover:text-blue-600 dark:border-white/10 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:border-blue-500/30 dark:hover:text-blue-400"
     >
-      {copied ? "링크가 복사됐어요 ✓" : "🔗 결과 공유하기"}
+      {copied ? copiedLabel : label}
     </button>
   );
 }
