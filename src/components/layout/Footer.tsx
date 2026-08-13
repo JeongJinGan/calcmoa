@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { categories, getToolsByCategory, siteConfig } from "@/lib/tools";
+import { guides } from "@/lib/guides";
 
 export default function Footer() {
   return (
     <footer className="mt-20 border-t border-black/5 bg-white dark:border-white/5 dark:bg-neutral-950">
       <div className="mx-auto max-w-5xl px-4 py-12">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:grid-cols-7">
           {categories.map((category) => (
             <div key={category}>
               <p className="mb-3 text-sm font-semibold text-neutral-900 dark:text-neutral-100">{category}</p>
@@ -23,6 +24,21 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+          <div>
+            <p className="mb-3 text-sm font-semibold text-neutral-900 dark:text-neutral-100">가이드</p>
+            <ul className="space-y-2">
+              {guides.map((guide) => (
+                <li key={guide.slug}>
+                  <Link
+                    href={`/guide/${guide.slug}`}
+                    className="text-sm text-neutral-500 transition-colors hover:text-blue-600 dark:text-neutral-400 dark:hover:text-blue-400"
+                  >
+                    {guide.emoji} {guide.shortTitle}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <div className="mt-10 border-t border-black/5 pt-6 text-xs leading-relaxed text-neutral-500 dark:border-white/5 dark:text-neutral-500">
           <p>

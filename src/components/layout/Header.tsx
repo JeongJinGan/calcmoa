@@ -14,7 +14,7 @@ export default function Header() {
           </span>
           <span>{siteConfig.name}</span>
         </Link>
-        <nav className="hidden gap-1 md:flex">
+        <nav className="hidden items-center gap-1 md:flex">
           {categories.map((category) => (
             <div key={category} className="group relative">
               <span className="cursor-default rounded-full px-3 py-2 text-sm font-medium text-neutral-600 transition-colors group-hover:bg-blue-50 group-hover:text-blue-600 dark:text-neutral-300 dark:group-hover:bg-blue-500/10 dark:group-hover:text-blue-400">
@@ -33,6 +33,12 @@ export default function Header() {
               </div>
             </div>
           ))}
+          <Link
+            href="/guide"
+            className="rounded-full px-3 py-2 text-sm font-medium text-neutral-600 transition-colors hover:bg-blue-50 hover:text-blue-600 dark:text-neutral-300 dark:hover:bg-blue-500/10 dark:hover:text-blue-400"
+          >
+            가이드
+          </Link>
         </nav>
       </div>
       <nav className="flex gap-2 overflow-x-auto border-t border-black/5 px-4 py-2.5 dark:border-white/5 md:hidden">
@@ -45,6 +51,12 @@ export default function Header() {
             {tool.shortTitle}
           </Link>
         ))}
+        <Link
+          href="/guide"
+          className="whitespace-nowrap rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-600 transition-colors hover:border-blue-300 hover:bg-blue-100 dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-400"
+        >
+          📖 가이드
+        </Link>
       </nav>
     </header>
   );
